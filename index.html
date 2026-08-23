@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIPrompt Labs - Advanced Image to AI Prompt & Face Matcher</title>
+    <!-- Google Search Console Verification Tag -->
+    <meta name="google-site-verification" content="Uvd0VP9Th_2IgA0jw_imPyWnw1KR5QyGBQUWGX0YHwI" />
+    <meta name="description" content="Upload any photo and instantly generate advanced AI prompts that keep your exact face and style for editing, Midjourney, and AI art generators!">
+    <style>
+        :root {
+            --primary-color: #7209b7;
+            --secondary-color: #4361ee;
+            --dark-bg: #0f0f0f;
+            --card-bg: #1f1f1f;
+            --text-color: #ffffff;
+            --text-muted: #aaaaaa;
+            --accent: #4cc9f0;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        /* Top Notification Bar */
+        .hype-ticker {
+            background: linear-gradient(90deg, #7209b7, #4361ee);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        header h1 span {
+            color: var(--accent);
+        }
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        /* Trust Badge Section */
+        .trust-box {
+            max-width: 900px;
+            margin: 20px auto;
+            background: var(--card-bg);
+            border-left: 5px solid var(--accent);
+            padding: 15px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .trust-box p {
+            font-size: 0.95rem;
+            color: #ddd;
+        }
+        .trust-box span {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .tool-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border: 1px solid #333;
+        }
+        .tool-card h2 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        /* Upload Box Design */
+        .upload-dropzone {
+            border: 2px dashed #555;
+            background: #252525;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+        .upload-dropzone:hover {
+            border-color: var(--accent);
+            background: #2b2b2b;
+        }
+        .upload-dropzone input {
+            display: none;
+        }
+        .upload-dropzone p {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+        button {
+            background: linear-gradient(90deg, #7209b7, #4361ee);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            width: 100%;
+            font-size: 1rem;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .output-box {
+            background: #2b2b2b;
+            padding: 15px;
+            border-radius: 6px;
+            min-height: 90px;
+            color: #ccc;
+            font-family: monospace;
+            border: 1px dashed #555;
+            margin-top: 15px;
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
+        /* Ad Container Styling */
+        .ad-container {
+            text-align: center;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Urgent Hype Notification -->
+    <div class="hype-ticker">
+        🔥 TRENDING: Generate exact face-lock prompts for AI Photo Editing & Midjourney in 1 Click!
+    </div>
+
+    <header>
+        <h1>AIPrompt <span>Labs</span></h1>
+        <p>Upload Your Photo & Extract Precise AI Prompts with Same-Face Consistency!</p>
+    </header>
+
+    <!-- Trust Building Box -->
+    <div class="trust-box">
+        <p>🛡️ <strong>Advanced Vision Analyzer:</strong> Scan lighting, poses, and facial expressions to recreate identical AI edits.</p>
+        <span>100% Free Tool</span>
+    </div>
+
+    <div class="container">
+        
+        <!-- Tool Card: Image to Prompt Generator -->
+        <div class="tool-card">
+            <h2>📸 AI Image-to-Prompt & Face Matcher</h2>
+            <p style="color: #aaa; margin-bottom: 15px; font-size: 0.9rem;">Upload your image below to scan facial structure, clothing style, background lighting, and generate custom editing prompts.</p>
+            
+            <!-- Upload Box -->
+            <div class="upload-dropzone" onclick="document.getElementById('fileInput').click()">
+                <p id="fileLabel">📁 Click here to upload your photo (JPG, PNG)</p>
+                <input type="file" id="fileInput" accept="image/*" onchange="handleImageUpload(event)">
+            </div>
+
+            <!-- Style Selector -->
+            <div style="margin-bottom: 15px;">
+                <label style="font-size: 0.9rem; color: #ccc; display: block; margin-bottom: 5px;">Select Desired AI Style:</label>
+                <select id="artStyle" style="width: 100%; padding: 12px; border-radius: 6px; background: #2b2b2b; color: white; border: 1px solid #444;">
+                    <option value="cinematic">Cinematic 8K Movie Look</option>
+                    <option value="cyberpunk">Cyberpunk Neon Style</option>
+                    <option value="royal">Royal Studio Portrait</option>
+                    <option value="anime">3D Pixar / Cartoon Style</option>
+                </select>
+            </div>
+
+            <button onclick="generatePrompt(); window.open('https://onionclose.com/nnkiwdi8?key=2776457c4c93298ebbced7dd1984957a', '_blank');">Generate Face-Lock Prompt</button>
+            
+            <div class="output-box" id="promptOutput">Your AI prompt with face-lock parameters will appear here after scanning...</div>
+        </div>
+
+        <!-- In-Content Banner Ad (300x250) -->
+        <div class="ad-container">
+            <script>
+              atOptions = {
+                'key' : '309d8b1dd4dcb32f5a78a9f6a8126f6c',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+              };
+            </script>
+            <script src="https://onionclose.com/309d8b1dd4dcb32f5a78a9f6a8126f6c/invoke.js"></script>
+        </div>
+
+    </div>
+
+    <!-- Footer Banner Ad (728x90) -->
+    <div class="ad-container">
+        <script>
+          atOptions = {
+            'key' : 'aaaccc05e5162f847eab4fa496420a0c',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script src="https://onionclose.com/aaaccc05e5162f847eab4fa496420a0c/invoke.js"></script>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 AIPrompt Labs. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let uploadedFileName = "";
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            const label = document.getElementById('fileLabel');
+            if (file) {
+                uploadedFileName = file.name;
+                label.innerHTML = `✅ Image Uploaded: <strong>${file.name}</strong> (Ready to Scan)`;
+            }
+        }
+
+        function generatePrompt() {
+            const output = document.getElementById('promptOutput');
+            const style = document.getElementById('artStyle').value;
+
+            if (uploadedFileName === "") {
+                output.innerHTML = "⚠️ Please upload an image first to extract facial features and lighting!";
+                return;
+            }
+
+            let stylePrompt = "";
+            if(style === "cinematic") {
+                stylePrompt = "Cinematic 8K resolution, masterpiece photography, dramatic volumetric lighting, highly detailed facial features, keeping exact face structure and expression reference, photorealistic --ar 9:16";
+            } else if(style === "cyberpunk") {
+                stylePrompt = "Cyberpunk neon street background, futuristic glowing lights, vibrant purple and cyan tones, sharp focus on face, face-lock consistent expression, unreal engine 5 render --ar 9:16";
+            } else if(style === "royal") {
+                stylePrompt = "Royal vintage palace background, rich golden lighting, luxury portrait photography, ultra-detailed textures, maintaining original face identity and features --ar 9:16";
+            } else {
+                stylePrompt = "3D Pixar style character animation, vibrant colors, soft studio lighting, cute and clean rendering, keeping distinct facial shape and likeness --ar 9:16";
+            }
+
+            output.innerHTML = `<strong>✨ Generated Face-Lock AI Prompt:</strong>\n\n"A high-end portrait based on reference face from file [${uploadedFileName}], ${stylePrompt}, professional color grading, masterpiece."\n\n👉 <em>Tip: Copy this prompt into Midjourney, Leonardo AI, or your Face Swap tool to keep the exact same face!</em>`;
+        }
+    </script>
+
+    <!-- Social Bar Ad -->
+    <script src="https://onionclose.com/b7/5f/be/b75fbe5bda6d52d43e6b446237090631.js"></script>
+</body>
+  </html>
+
