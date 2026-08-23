@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIPrompt Labs - Advanced Image to AI Prompt & Face Matcher</title>
+    <title>AIPrompt Labs - AI Vision Image-to-Prompt Studio</title>
     <!-- Google Search Console Verification Tag -->
     <meta name="google-site-verification" content="Uvd0VP9Th_2IgA0jw_imPyWnw1KR5QyGBQUWGX0YHwI" />
     <meta name="description" content="Upload any photo and instantly generate advanced AI prompts that keep your exact face and style for editing, Midjourney, and AI art generators!">
@@ -28,7 +28,6 @@
             color: var(--text-color);
             line-height: 1.6;
         }
-        /* Top Notification Bar */
         .hype-ticker {
             background: linear-gradient(90deg, #7209b7, #4361ee);
             color: white;
@@ -36,7 +35,6 @@
             padding: 10px;
             font-weight: bold;
             font-size: 14px;
-            letter-spacing: 0.5px;
         }
         header {
             text-align: center;
@@ -54,27 +52,6 @@
             color: var(--text-muted);
             font-size: 1.1rem;
         }
-        /* Trust Badge Section */
-        .trust-box {
-            max-width: 900px;
-            margin: 20px auto;
-            background: var(--card-bg);
-            border-left: 5px solid var(--accent);
-            padding: 15px 20px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .trust-box p {
-            font-size: 0.95rem;
-            color: #ddd;
-        }
-        .trust-box span {
-            color: var(--accent);
-            font-weight: bold;
-        }
-        /* Main Container */
         .container {
             max-width: 900px;
             margin: 30px auto;
@@ -93,7 +70,6 @@
             font-size: 1.5rem;
             color: var(--accent);
         }
-        /* Upload Box Design */
         .upload-dropzone {
             border: 2px dashed #555;
             background: #252525;
@@ -111,11 +87,6 @@
         .upload-dropzone input {
             display: none;
         }
-        .upload-dropzone p {
-            color: #aaa;
-            font-size: 0.95rem;
-        }
-        /* Image Preview Style */
         #imagePreview {
             max-width: 150px;
             max-height: 150px;
@@ -151,7 +122,6 @@
             word-break: break-all;
             white-space: pre-wrap;
         }
-        /* Ad Container Styling */
         .ad-container {
             text-align: center;
             margin: 20px 0;
@@ -169,53 +139,32 @@
 </head>
 <body>
 
-    <!-- Top Urgent Hype Notification -->
     <div class="hype-ticker">
-        🔥 TRENDING: Generate exact face-lock prompts for AI Photo Editing & Midjourney in 1 Click!
+        🔥 POWERED BY GEMINI AI VISION: Generate exact descriptive prompts with face and clothing details instantly!
     </div>
 
     <header>
         <h1>AIPrompt <span>Labs</span></h1>
-        <p>Upload Your Photo & Extract Precise AI Prompts with Same-Face Consistency!</p>
+        <p>Real AI Image-to-Prompt Generator with Gemini Vision API</p>
     </header>
 
-    <!-- Trust Building Box -->
-    <div class="trust-box">
-        <p>🛡️ <strong>Advanced Vision Analyzer:</strong> Scan lighting, dimensions, and facial structure to recreate identical AI edits.</p>
-        <span>100% Free Tool</span>
-    </div>
-
     <div class="container">
-        
-        <!-- Tool Card: Image to Prompt Generator -->
         <div class="tool-card">
-            <h2>📸 AI Image-to-Prompt & Face Matcher</h2>
-            <p style="color: #aaa; margin-bottom: 15px; font-size: 0.9rem;">Upload your image below to scan facial structure, resolution, and background lighting to generate custom editing prompts.</p>
+            <h2>📸 AI Vision Analyzer & Prompt Builder</h2>
+            <p style="color: #aaa; margin-bottom: 15px; font-size: 0.9rem;">Upload any photo to analyze clothing, background, lighting, and generate an exact AI editing prompt.</p>
             
-            <!-- Upload Box -->
             <div class="upload-dropzone" onclick="document.getElementById('fileInput').click()">
                 <p id="fileLabel">📁 Click here to upload your photo (JPG, PNG)</p>
                 <input type="file" id="fileInput" accept="image/*" onchange="handleImageUpload(event)">
                 <center><img id="imagePreview" alt="Uploaded Preview"></center>
             </div>
 
-            <!-- Style Selector -->
-            <div style="margin-bottom: 15px;">
-                <label style="font-size: 0.9rem; color: #ccc; display: block; margin-bottom: 5px;">Select Desired AI Style:</label>
-                <select id="artStyle" style="width: 100%; padding: 12px; border-radius: 6px; background: #2b2b2b; color: white; border: 1px solid #444;">
-                    <option value="cinematic">Cinematic 8K Movie Look</option>
-                    <option value="cyberpunk">Cyberpunk Neon Style</option>
-                    <option value="royal">Royal Studio Portrait</option>
-                    <option value="anime">3D Pixar / Cartoon Style</option>
-                </select>
-            </div>
-
-            <button onclick="generatePrompt(); window.open('https://onionclose.com/nnkiwdi8?key=2776457c4c93298ebbced7dd1984957a', '_blank');">Generate Face-Lock Prompt</button>
+            <button onclick="analyzeImageWithGemini(); window.open('https://onionclose.com/nnkiwdi8?key=2776457c4c93298ebbced7dd1984957a', '_blank');">Generate Exact AI Prompt</button>
             
-            <div class="output-box" id="promptOutput">Your AI prompt with face-lock parameters will appear here after scanning...</div>
+            <div class="output-box" id="promptOutput">Your real AI analyzed prompt will appear here after uploading an image...</div>
         </div>
 
-        <!-- In-Content Banner Ad (300x250) -->
+        <!-- In-Content Banner Ad -->
         <div class="ad-container">
             <script>
               atOptions = {
@@ -228,10 +177,9 @@
             </script>
             <script src="https://onionclose.com/309d8b1dd4dcb32f5a78a9f6a8126f6c/invoke.js"></script>
         </div>
-
     </div>
 
-    <!-- Footer Banner Ad (728x90) -->
+    <!-- Footer Banner Ad -->
     <div class="ad-container">
         <script>
           atOptions = {
@@ -250,9 +198,11 @@
     </footer>
 
     <script>
-        let uploadedImageWidth = 0;
-        let uploadedImageHeight = 0;
-        let uploadedFileName = "";
+        let base64Image = "";
+        let mimeType = "";
+
+        // Aapki di gayi Gemini API Key yahan integrated hai
+        const API_KEY = "AQ.Ab8RN6L36PpbVAM_R7U_v77O-rJzWtJx2tN_BQ8jtv0JJQXKhw"; 
 
         function handleImageUpload(event) {
             const file = event.target.files[0];
@@ -260,54 +210,64 @@
             const preview = document.getElementById('imagePreview');
             
             if (file) {
-                uploadedFileName = file.name;
+                mimeType = file.type;
                 const reader = new FileReader();
                 
                 reader.onload = function(e) {
                     preview.src = e.target.result;
                     preview.style.display = 'block';
+                    label.innerHTML = `✅ Image Loaded: <strong>${file.name}</strong>`;
                     
-                    // Asli image dimensions read karne ke liye
-                    const img = new Image();
-                    img.src = e.target.result;
-                    img.onload = function() {
-                        uploadedImageWidth = img.width;
-                        uploadedImageHeight = img.height;
-                        label.innerHTML = `✅ Scanned Successfully: <strong>${file.name}</strong> (${uploadedImageWidth}x${uploadedImageHeight}px)`;
-                    }
+                    base64Image = e.target.result.split(',')[1];
                 }
                 reader.readAsDataURL(file);
             }
         }
 
-        function generatePrompt() {
+        async function analyzeImageWithGemini() {
             const output = document.getElementById('promptOutput');
-            const style = document.getElementById('artStyle').value;
 
-            if (uploadedFileName === "") {
-                output.innerHTML = "⚠️ Please upload an image first so the analyzer can scan its properties!";
+            if (!base64Image) {
+                output.innerHTML = "⚠️ Please upload an image first!";
                 return;
             }
 
-            // Scanning effect simulate karna taake real AI feel aaye
-            output.innerHTML = "🔍 Scanning image pixels, facial geometry, and lighting parameters... Please wait.";
+            output.innerHTML = "🔍 AI Vision is scanning your image (clothing, background, poses, lighting)... Please wait.";
 
-            setTimeout(() => {
-                let stylePrompt = "";
-                let aspectRatio = uploadedImageWidth > uploadedImageHeight ? "--ar 16:9" : (uploadedImageWidth < uploadedImageHeight ? "--ar 9:16" : "--ar 1:1");
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
-                if(style === "cinematic") {
-                    stylePrompt = `Cinematic 8K resolution masterpiece photography, highly detailed facial structure matching reference [${uploadedFileName}], dramatic volumetric lighting, professional color grading, ultra-realistic texture ${aspectRatio}`;
-                } else if(style === "cyberpunk") {
-                    stylePrompt = `Cyberpunk neon street background, futuristic glowing lights, vibrant purple and cyan tones, crisp sharp focus on face matching [${uploadedFileName}], unreal engine 5 render ${aspectRatio}`;
-                } else if(style === "royal") {
-                    stylePrompt = `Royal vintage palace background, rich golden lighting, luxury portrait photography, maintaining exact facial identity and features from [${uploadedFileName}], ultra-detailed ${aspectRatio}`;
+            const payload = {
+                contents: [{
+                    parts: [
+                        { text: "Analyze this image in detail and write a professional image generation prompt describing the subjects, their clothing, poses, expressions, background, environment, and lighting style, just like an AI art prompt." },
+                        {
+                            inline_data: {
+                                mime_type: mimeType,
+                                data: base64Image
+                            }
+                        }
+                    ]
+                }]
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    const generatedText = data.candidates[0].content.parts[0].text;
+                    output.innerHTML = `<strong>✨ Exact AI Prompt:</strong>\n\n"${generatedText.trim()}"`;
                 } else {
-                    stylePrompt = `3D Pixar style character animation, vibrant colors, soft studio lighting, cute and clean rendering, keeping distinct facial shape and likeness from [${uploadedFileName}] ${aspectRatio}`;
+                    output.innerHTML = "❌ Failed to generate prompt. Please check if your API key is correct and active.";
                 }
-
-                output.innerHTML = `<strong>✨ Generated Face-Lock AI Prompt:</strong>\n\n"A high-end professional portrait, reference image: ${uploadedFileName} (${uploadedImageWidth}x${uploadedImageHeight}px), ${stylePrompt}"\n\n👉 <em>Tip: Copy this exact prompt into Midjourney, Leonardo AI, or your Face Swap tool to keep the same face and matching dimensions!</em>`;
-            }, 1000);
+            } catch (error) {
+                output.innerHTML = "❌ Error connecting to AI Vision API: " + error.message;
+            }
         }
     </script>
 
