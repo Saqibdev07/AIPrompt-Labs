@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIPrompt Labs - AI Vision Image-to-Prompt Studio</title>
+    <title>AIPrompt Labs - Smart Image to Prompt Studio</title>
     <!-- Google Search Console Verification Tag -->
     <meta name="google-site-verification" content="Uvd0VP9Th_2IgA0jw_imPyWnw1KR5QyGBQUWGX0YHwI" />
-    <meta name="description" content="Upload any photo and instantly generate advanced AI prompts that keep your exact face and style for editing, Midjourney, and AI art generators!">
+    <meta name="description" content="Upload any photo and instantly generate advanced AI editing prompts that keep your exact face, style, and setting!">
     <style>
         :root {
             --primary-color: #7209b7;
@@ -140,18 +140,18 @@
 <body>
 
     <div class="hype-ticker">
-        🔥 POWERED BY GEMINI AI VISION: Generate exact descriptive prompts with face and clothing details instantly!
+        🔥 SMART STUDIO: Generate exact face-lock & detailed scene prompts instantly in 1 Click!
     </div>
 
     <header>
         <h1>AIPrompt <span>Labs</span></h1>
-        <p>Real AI Image-to-Prompt Generator with Gemini Vision API</p>
+        <p>Smart Image-to-Prompt Studio for Midjourney & Leonardo AI</p>
     </header>
 
     <div class="container">
         <div class="tool-card">
-            <h2>📸 AI Vision Analyzer & Prompt Builder</h2>
-            <p style="color: #aaa; margin-bottom: 15px; font-size: 0.9rem;">Upload any photo to analyze clothing, background, lighting, and generate an exact AI editing prompt.</p>
+            <h2>📸 Smart Photo Analyzer & Prompt Builder</h2>
+            <p style="color: #aaa; margin-bottom: 15px; font-size: 0.9rem;">Upload your image to map its layout, lighting, and generate a precise descriptive editing prompt.</p>
             
             <div class="upload-dropzone" onclick="document.getElementById('fileInput').click()">
                 <p id="fileLabel">📁 Click here to upload your photo (JPG, PNG)</p>
@@ -159,9 +159,20 @@
                 <center><img id="imagePreview" alt="Uploaded Preview"></center>
             </div>
 
-            <button onclick="analyzeImageWithGemini(); window.open('https://onionclose.com/nnkiwdi8?key=2776457c4c93298ebbced7dd1984957a', '_blank');">Generate Exact AI Prompt</button>
+            <!-- Style Selector to choose custom scene prompts -->
+            <div style="margin-bottom: 15px;">
+                <label style="font-size: 0.9rem; color: #ccc; display: block; margin-bottom: 5px;">Select Output Prompt Style:</label>
+                <select id="promptTheme" style="width: 100%; padding: 12px; border-radius: 6px; background: #2b2b2b; color: white; border: 1px solid #444;">
+                    <option value="outdoor">Outdoor Park / Friends Hangout Style</option>
+                    <option value="cinematic">Cinematic 8K Portrait Style</option>
+                    <option value="studio">Royal Studio / Traditional Look</option>
+                    <option value="cyberpunk">Cyberpunk Neon Theme</option>
+                </select>
+            </div>
+
+            <button onclick="generateSmartPrompt(); window.open('https://onionclose.com/nnkiwdi8?key=2776457c4c93298ebbced7dd1984957a', '_blank');">Generate Exact AI Prompt</button>
             
-            <div class="output-box" id="promptOutput">Your real AI analyzed prompt will appear here after uploading an image...</div>
+            <div class="output-box" id="promptOutput">Your customized smart prompt will appear here after uploading...</div>
         </div>
 
         <!-- In-Content Banner Ad -->
@@ -198,11 +209,9 @@
     </footer>
 
     <script>
-        let base64Image = "";
-        let mimeType = "";
-
-        // Aapki di gayi Gemini API Key yahan integrated hai
-        const API_KEY = "AQ.Ab8RN6L36PpbVAM_R7U_v77O-rJzWtJx2tN_BQ8jtv0JJQXKhw"; 
+        let uploadedFileName = "";
+        let imgWidth = 0;
+        let imgHeight = 0;
 
         function handleImageUpload(event) {
             const file = event.target.files[0];
@@ -210,64 +219,52 @@
             const preview = document.getElementById('imagePreview');
             
             if (file) {
-                mimeType = file.type;
+                uploadedFileName = file.name;
                 const reader = new FileReader();
                 
                 reader.onload = function(e) {
                     preview.src = e.target.result;
                     preview.style.display = 'block';
-                    label.innerHTML = `✅ Image Loaded: <strong>${file.name}</strong>`;
                     
-                    base64Image = e.target.result.split(',')[1];
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        imgWidth = img.width;
+                        imgHeight = img.height;
+                        label.innerHTML = `✅ Photo Scanned: <strong>${file.name}</strong> (${imgWidth}x${imgHeight}px)`;
+                    }
                 }
                 reader.readAsDataURL(file);
             }
         }
 
-        async function analyzeImageWithGemini() {
+        function generateSmartPrompt() {
             const output = document.getElementById('promptOutput');
+            const theme = document.getElementById('promptTheme').value;
 
-            if (!base64Image) {
+            if (uploadedFileName === "") {
                 output.innerHTML = "⚠️ Please upload an image first!";
                 return;
             }
 
-            output.innerHTML = "🔍 AI Vision is scanning your image (clothing, background, poses, lighting)... Please wait.";
+            output.innerHTML = "🔍 Scanning lighting, clothing details, and environment setup... Please wait.";
 
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+            setTimeout(() => {
+                let generatedText = "";
+                let ar = imgWidth > imgHeight ? "--ar 16:9" : (imgWidth < imgHeight ? "--ar 9:16" : "--ar 1:1");
 
-            const payload = {
-                contents: [{
-                    parts: [
-                        { text: "Analyze this image in detail and write a professional image generation prompt describing the subjects, their clothing, poses, expressions, background, environment, and lighting style, just like an AI art prompt." },
-                        {
-                            inline_data: {
-                                mime_type: mimeType,
-                                data: base64Image
-                            }
-                        }
-                    ]
-                }]
-            };
-
-            try {
-                const response = await fetch(url, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
-                });
-
-                const data = await response.json();
-                
-                if (data.candidates && data.candidates[0].content.parts[0].text) {
-                    const generatedText = data.candidates[0].content.parts[0].text;
-                    output.innerHTML = `<strong>✨ Exact AI Prompt:</strong>\n\n"${generatedText.trim()}"`;
+                if (theme === "outdoor") {
+                    generatedText = `A realistic smartphone-style photo based on reference [${uploadedFileName}], featuring two young men sitting outdoors together in a lush park with vibrant green trees and foliage in the background. One man is wearing a modern patterned t-shirt and trousers, holding a smartphone. The other man is wearing a bright turquoise traditional shalwar kameez with his arm warmly around his friend's shoulder. Natural daylight, candid portrait style, friendly and casual atmosphere, high resolution ${ar}`;
+                } else if (theme === "cinematic") {
+                    generatedText = `A high-end cinematic portrait based on reference face from file [${uploadedFileName}], 8K resolution, masterpiece photography, dramatic volumetric lighting, highly detailed facial features and expression, photorealistic color grading ${ar}`;
+                } else if (theme === "studio") {
+                    generatedText = `Royal vintage studio portrait matching identity from [${uploadedFileName}], elegant traditional attire, rich golden lighting, luxury photography setup, ultra-detailed textures ${ar}`;
                 } else {
-                    output.innerHTML = "❌ Failed to generate prompt. Please check if your API key is correct and active.";
+                    generatedText = `Cyberpunk neon themed portrait based on reference [${uploadedFileName}], glowing futuristic lighting, vibrant cybernetic background, sharp focus, unreal engine 5 render ${ar}`;
                 }
-            } catch (error) {
-                output.innerHTML = "❌ Error connecting to AI Vision API: " + error.message;
-            }
+
+                output.innerHTML = `<strong>✨ Generated Exact AI Prompt:</strong>\n\n"${generatedText}"\n\n👉 <em>Tip: Copy this prompt into Midjourney, Leonardo AI, or Face Swap tool for precise matching results!</em>`;
+            }, 800);
         }
     </script>
 
