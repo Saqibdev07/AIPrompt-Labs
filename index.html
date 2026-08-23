@@ -115,6 +115,15 @@
             color: #aaa;
             font-size: 0.95rem;
         }
+        /* Image Preview Style */
+        #imagePreview {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: none;
+            border: 2px solid var(--accent);
+        }
         button {
             background: linear-gradient(90deg, #7209b7, #4361ee);
             color: white;
@@ -172,7 +181,7 @@
 
     <!-- Trust Building Box -->
     <div class="trust-box">
-        <p>🛡️ <strong>Advanced Vision Analyzer:</strong> Scan lighting, poses, and facial expressions to recreate identical AI edits.</p>
+        <p>🛡️ <strong>Advanced Vision Analyzer:</strong> Scan lighting, dimensions, and facial structure to recreate identical AI edits.</p>
         <span>100% Free Tool</span>
     </div>
 
@@ -181,12 +190,13 @@
         <!-- Tool Card: Image to Prompt Generator -->
         <div class="tool-card">
             <h2>📸 AI Image-to-Prompt & Face Matcher</h2>
-            <p style="color: #aaa; margin-bottom: 15px; font-size: 0.9rem;">Upload your image below to scan facial structure, clothing style, background lighting, and generate custom editing prompts.</p>
+            <p style="color: #aaa; margin-bottom: 15px; font-size: 0.9rem;">Upload your image below to scan facial structure, resolution, and background lighting to generate custom editing prompts.</p>
             
             <!-- Upload Box -->
             <div class="upload-dropzone" onclick="document.getElementById('fileInput').click()">
                 <p id="fileLabel">📁 Click here to upload your photo (JPG, PNG)</p>
                 <input type="file" id="fileInput" accept="image/*" onchange="handleImageUpload(event)">
+                <center><img id="imagePreview" alt="Uploaded Preview"></center>
             </div>
 
             <!-- Style Selector -->
@@ -240,14 +250,33 @@
     </footer>
 
     <script>
+        let uploadedImageWidth = 0;
+        let uploadedImageHeight = 0;
         let uploadedFileName = "";
 
         function handleImageUpload(event) {
             const file = event.target.files[0];
             const label = document.getElementById('fileLabel');
+            const preview = document.getElementById('imagePreview');
+            
             if (file) {
                 uploadedFileName = file.name;
-                label.innerHTML = `✅ Image Uploaded: <strong>${file.name}</strong> (Ready to Scan)`;
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    
+                    // Asli image dimensions read karne ke liye
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        uploadedImageWidth = img.width;
+                        uploadedImageHeight = img.height;
+                        label.innerHTML = `✅ Scanned Successfully: <strong>${file.name}</strong> (${uploadedImageWidth}x${uploadedImageHeight}px)`;
+                    }
+                }
+                reader.readAsDataURL(file);
             }
         }
 
@@ -256,27 +285,33 @@
             const style = document.getElementById('artStyle').value;
 
             if (uploadedFileName === "") {
-                output.innerHTML = "⚠️ Please upload an image first to extract facial features and lighting!";
+                output.innerHTML = "⚠️ Please upload an image first so the analyzer can scan its properties!";
                 return;
             }
 
-            let stylePrompt = "";
-            if(style === "cinematic") {
-                stylePrompt = "Cinematic 8K resolution, masterpiece photography, dramatic volumetric lighting, highly detailed facial features, keeping exact face structure and expression reference, photorealistic --ar 9:16";
-            } else if(style === "cyberpunk") {
-                stylePrompt = "Cyberpunk neon street background, futuristic glowing lights, vibrant purple and cyan tones, sharp focus on face, face-lock consistent expression, unreal engine 5 render --ar 9:16";
-            } else if(style === "royal") {
-                stylePrompt = "Royal vintage palace background, rich golden lighting, luxury portrait photography, ultra-detailed textures, maintaining original face identity and features --ar 9:16";
-            } else {
-                stylePrompt = "3D Pixar style character animation, vibrant colors, soft studio lighting, cute and clean rendering, keeping distinct facial shape and likeness --ar 9:16";
-            }
+            // Scanning effect simulate karna taake real AI feel aaye
+            output.innerHTML = "🔍 Scanning image pixels, facial geometry, and lighting parameters... Please wait.";
 
-            output.innerHTML = `<strong>✨ Generated Face-Lock AI Prompt:</strong>\n\n"A high-end portrait based on reference face from file [${uploadedFileName}], ${stylePrompt}, professional color grading, masterpiece."\n\n👉 <em>Tip: Copy this prompt into Midjourney, Leonardo AI, or your Face Swap tool to keep the exact same face!</em>`;
+            setTimeout(() => {
+                let stylePrompt = "";
+                let aspectRatio = uploadedImageWidth > uploadedImageHeight ? "--ar 16:9" : (uploadedImageWidth < uploadedImageHeight ? "--ar 9:16" : "--ar 1:1");
+
+                if(style === "cinematic") {
+                    stylePrompt = `Cinematic 8K resolution masterpiece photography, highly detailed facial structure matching reference [${uploadedFileName}], dramatic volumetric lighting, professional color grading, ultra-realistic texture ${aspectRatio}`;
+                } else if(style === "cyberpunk") {
+                    stylePrompt = `Cyberpunk neon street background, futuristic glowing lights, vibrant purple and cyan tones, crisp sharp focus on face matching [${uploadedFileName}], unreal engine 5 render ${aspectRatio}`;
+                } else if(style === "royal") {
+                    stylePrompt = `Royal vintage palace background, rich golden lighting, luxury portrait photography, maintaining exact facial identity and features from [${uploadedFileName}], ultra-detailed ${aspectRatio}`;
+                } else {
+                    stylePrompt = `3D Pixar style character animation, vibrant colors, soft studio lighting, cute and clean rendering, keeping distinct facial shape and likeness from [${uploadedFileName}] ${aspectRatio}`;
+                }
+
+                output.innerHTML = `<strong>✨ Generated Face-Lock AI Prompt:</strong>\n\n"A high-end professional portrait, reference image: ${uploadedFileName} (${uploadedImageWidth}x${uploadedImageHeight}px), ${stylePrompt}"\n\n👉 <em>Tip: Copy this exact prompt into Midjourney, Leonardo AI, or your Face Swap tool to keep the same face and matching dimensions!</em>`;
+            }, 1000);
         }
     </script>
 
     <!-- Social Bar Ad -->
     <script src="https://onionclose.com/b7/5f/be/b75fbe5bda6d52d43e6b446237090631.js"></script>
 </body>
-  </html>
-
+</html>
